@@ -1,0 +1,294 @@
+UseCaseModel Authoring {
+
+	UC::ProvideScript include ProvideResources definedBySSD(ProvideScriptSSD) relatedService(ProvideScriptService)
+	UC::ProvideResources definedBySSD(ProvideResourcesSSD) relatedService(ProvideResourcesService)
+	UC::GeneratePrototype include Parameters , ProvideScript, ProvideResources definedBySSD(GeneratePrototypeSSD) relatedService(GeneratePrototypeService)
+	UC::Parameters definedBySSD(ParametersSSD) relatedService(ParametersService)
+	UC::Release include GeneratePrototype, Archive definedBySSD(ReleaseSSD) relatedService(ReleaseService)
+	UC::Archive definedBySSD(ArchiveSSD) relatedService(ArchiveService)
+
+	Actor Producer {
+		ProvideScript
+		ProvideResources
+		GeneratePrototype
+		Parameters
+	}
+
+	Actor Player {
+		Release
+		Archive
+	}
+
+	Interaction ProvideScriptSSD {
+
+		[Participants: Producer ProvideScriptService]
+
+		CallMessage::ProvideScriptSSDCallMessage1(ProvideScript ProvideScriptSSDCallMessage1SendingEnd -> ProvideScriptSSDExecution1StartEnd)
+		CallMessage::ProvideScriptSSDCallMessage2(SearchResources ProvideScriptSSDCallMessage2SendingEnd -> ProvideScriptSSDExecution2StartEnd)
+		ReturnMessage::ProvideScriptSSDCallMessage1Return(ProvideScriptSSDExecution1FinishEnd -> ProvideScriptSSDCallMessage1ReturnReceivingEnd ProvideScriptSSDCallMessage1)
+		ReturnMessage::ProvideScriptSSDCallMessage2Return(ProvideScriptSSDExecution2FinishEnd -> ProvideScriptSSDCallMessage2ReturnReceivingEnd ProvideScriptSSDCallMessage2)
+
+		Execution::ProvideScriptSSDExecution1(ProvideScriptService ProvideScriptSSDExecution1StartEnd ProvideScriptSSDExecution1FinishEnd)
+		Execution::ProvideScriptSSDExecution2(ProvideScriptService ProvideScriptSSDExecution2StartEnd ProvideScriptSSDExecution2FinishEnd)
+
+		MessageEnd::ProvideScriptSSDCallMessage1SendingEnd(Producer ProvideScriptSSDCallMessage1)
+		ExecutionEnd::ProvideScriptSSDExecution1StartEnd(ProvideScriptService ProvideScriptSSDExecution1)
+		ExecutionEnd::ProvideScriptSSDExecution1FinishEnd(ProvideScriptService ProvideScriptSSDExecution1)
+		MessageEnd::ProvideScriptSSDCallMessage1ReturnReceivingEnd(Producer ProvideScriptSSDCallMessage1Return)
+		MessageEnd::ProvideScriptSSDCallMessage2SendingEnd(Producer ProvideScriptSSDCallMessage2)
+		ExecutionEnd::ProvideScriptSSDExecution2StartEnd(ProvideScriptService ProvideScriptSSDExecution2)
+		ExecutionEnd::ProvideScriptSSDExecution2FinishEnd(ProvideScriptService ProvideScriptSSDExecution2)
+		MessageEnd::ProvideScriptSSDCallMessage2ReturnReceivingEnd(Producer ProvideScriptSSDCallMessage2Return)
+
+	}
+
+	Interaction ProvideResourcesSSD {
+
+		[Participants: Producer ProvideResourcesService]
+
+		CallMessage::ProvideResourcesSSDCallMessage1(ProvideResources ProvideResourcesSSDCallMessage1SendingEnd -> ProvideResourcesSSDExecution1StartEnd)
+		ReturnMessage::ProvideResourcesSSDCallMessage1Return(ProvideResourcesSSDExecution1FinishEnd -> ProvideResourcesSSDCallMessage1ReturnReceivingEnd ProvideResourcesSSDCallMessage1)
+
+		Execution::ProvideResourcesSSDExecution1(ProvideResourcesService ProvideResourcesSSDExecution1StartEnd ProvideResourcesSSDExecution1FinishEnd)
+
+		MessageEnd::ProvideResourcesSSDCallMessage1SendingEnd(Producer ProvideResourcesSSDCallMessage1)
+		ExecutionEnd::ProvideResourcesSSDExecution1StartEnd(ProvideResourcesService ProvideResourcesSSDExecution1)
+		ExecutionEnd::ProvideResourcesSSDExecution1FinishEnd(ProvideResourcesService ProvideResourcesSSDExecution1)
+		MessageEnd::ProvideResourcesSSDCallMessage1ReturnReceivingEnd(Producer ProvideResourcesSSDCallMessage1Return)
+
+	}
+
+	Interaction GeneratePrototypeSSD {
+
+		[Participants: Producer GeneratePrototypeService]
+
+		CallMessage::GeneratePrototypeSSDCallMessage1(GeneratePrototype GeneratePrototypeSSDCallMessage1SendingEnd -> GeneratePrototypeSSDExecution1StartEnd)
+		ReturnMessage::GeneratePrototypeSSDCallMessage1Return(GeneratePrototypeSSDExecution1FinishEnd -> GeneratePrototypeSSDCallMessage1ReturnReceivingEnd GeneratePrototypeSSDCallMessage1)
+		CallMessage::GeneratePrototypeSSDCallMessage3(AddBranch GeneratePrototypeSSDCallMessage3SendingEnd -> GeneratePrototypeSSDExecution2StartEnd)
+		ReturnMessage::GeneratePrototypeSSDCallMessage3Return(GeneratePrototypeSSDExecution2FinishEnd -> GeneratePrototypeSSDCallMessage3ReturnReceivingEnd GeneratePrototypeSSDCallMessage3)
+		CallMessage::GeneratePrototypeSSDCallMessage5(AdjustText GeneratePrototypeSSDCallMessage5SendingEnd -> GeneratePrototypeSSDExecution3StartEnd)
+		ReturnMessage::GeneratePrototypeSSDCallMessage5Return(GeneratePrototypeSSDExecution3FinishEnd -> GeneratePrototypeSSDCallMessage5ReturnReceivingEnd GeneratePrototypeSSDCallMessage5)
+		CallMessage::GeneratePrototypeSSDCallMessage7(AdjustResources GeneratePrototypeSSDCallMessage7SendingEnd -> GeneratePrototypeSSDExecution4StartEnd)
+		ReturnMessage::GeneratePrototypeSSDCallMessage7Return(GeneratePrototypeSSDExecution4FinishEnd -> GeneratePrototypeSSDCallMessage7ReturnReceivingEnd GeneratePrototypeSSDCallMessage7)
+		CallMessage::GeneratePrototypeSSDCallMessage9(ProvideExtraScri GeneratePrototypeSSDCallMessage9SendingEnd -> GeneratePrototypeSSDExecution5StartEnd)
+		ReturnMessage::GeneratePrototypeSSDCallMessage9Return(GeneratePrototypeSSDExecution5FinishEnd -> GeneratePrototypeSSDCallMessage9ReturnReceivingEnd GeneratePrototypeSSDCallMessage9)
+		CallMessage::GeneratePrototypeSSDCallMessage11(RegeneratePrototype GeneratePrototypeSSDCallMessage11SendingEnd -> GeneratePrototypeSSDExecution6StartEnd)
+		ReturnMessage::GeneratePrototypeSSDCallMessage11Return(GeneratePrototypeSSDExecution6FinishEnd -> GeneratePrototypeSSDCallMessage11ReturnReceivingEnd GeneratePrototypeSSDCallMessage11)
+
+		Execution::GeneratePrototypeSSDExecution1(GeneratePrototypeService GeneratePrototypeSSDExecution1StartEnd GeneratePrototypeSSDExecution1FinishEnd)
+		Execution::GeneratePrototypeSSDExecution2(GeneratePrototypeService GeneratePrototypeSSDExecution2StartEnd GeneratePrototypeSSDExecution2FinishEnd)
+		Execution::GeneratePrototypeSSDExecution3(GeneratePrototypeService GeneratePrototypeSSDExecution3StartEnd GeneratePrototypeSSDExecution3FinishEnd)
+		Execution::GeneratePrototypeSSDExecution4(GeneratePrototypeService GeneratePrototypeSSDExecution4StartEnd GeneratePrototypeSSDExecution4FinishEnd)
+		Execution::GeneratePrototypeSSDExecution5(GeneratePrototypeService GeneratePrototypeSSDExecution5StartEnd GeneratePrototypeSSDExecution5FinishEnd)
+		Execution::GeneratePrototypeSSDExecution6(GeneratePrototypeService GeneratePrototypeSSDExecution6StartEnd GeneratePrototypeSSDExecution6FinishEnd)
+
+		MessageEnd::GeneratePrototypeSSDCallMessage1SendingEnd(Producer GeneratePrototypeSSDCallMessage1)
+		ExecutionEnd::GeneratePrototypeSSDExecution1StartEnd(GeneratePrototypeService GeneratePrototypeSSDExecution1)
+		ExecutionEnd::GeneratePrototypeSSDExecution1FinishEnd(GeneratePrototypeService GeneratePrototypeSSDExecution1)
+		MessageEnd::GeneratePrototypeSSDCallMessage1ReturnReceivingEnd(Producer GeneratePrototypeSSDCallMessage1Return)
+		MessageEnd::GeneratePrototypeSSDCallMessage3SendingEnd(Producer GeneratePrototypeSSDCallMessage3)
+		ExecutionEnd::GeneratePrototypeSSDExecution2StartEnd(GeneratePrototypeService GeneratePrototypeSSDExecution2)
+		ExecutionEnd::GeneratePrototypeSSDExecution2FinishEnd(GeneratePrototypeService GeneratePrototypeSSDExecution2)
+		MessageEnd::GeneratePrototypeSSDCallMessage3ReturnReceivingEnd(Producer GeneratePrototypeSSDCallMessage3Return)
+		MessageEnd::GeneratePrototypeSSDCallMessage5SendingEnd(Producer GeneratePrototypeSSDCallMessage5)
+		ExecutionEnd::GeneratePrototypeSSDExecution3StartEnd(GeneratePrototypeService GeneratePrototypeSSDExecution3)
+		ExecutionEnd::GeneratePrototypeSSDExecution3FinishEnd(GeneratePrototypeService GeneratePrototypeSSDExecution3)
+		MessageEnd::GeneratePrototypeSSDCallMessage5ReturnReceivingEnd(Producer GeneratePrototypeSSDCallMessage5Return)
+		MessageEnd::GeneratePrototypeSSDCallMessage7SendingEnd(Producer GeneratePrototypeSSDCallMessage7)
+		ExecutionEnd::GeneratePrototypeSSDExecution4StartEnd(GeneratePrototypeService GeneratePrototypeSSDExecution4)
+		ExecutionEnd::GeneratePrototypeSSDExecution4FinishEnd(GeneratePrototypeService GeneratePrototypeSSDExecution4)
+		MessageEnd::GeneratePrototypeSSDCallMessage7ReturnReceivingEnd(Producer GeneratePrototypeSSDCallMessage7Return)
+		MessageEnd::GeneratePrototypeSSDCallMessage9SendingEnd(Producer GeneratePrototypeSSDCallMessage9)
+		ExecutionEnd::GeneratePrototypeSSDExecution5StartEnd(GeneratePrototypeService GeneratePrototypeSSDExecution5)
+		ExecutionEnd::GeneratePrototypeSSDExecution5FinishEnd(GeneratePrototypeService GeneratePrototypeSSDExecution5)
+		MessageEnd::GeneratePrototypeSSDCallMessage9ReturnReceivingEnd(Producer GeneratePrototypeSSDCallMessage9Return)
+		MessageEnd::GeneratePrototypeSSDCallMessage11SendingEnd(Producer GeneratePrototypeSSDCallMessage11)
+		ExecutionEnd::GeneratePrototypeSSDExecution6StartEnd(GeneratePrototypeService GeneratePrototypeSSDExecution6)
+		ExecutionEnd::GeneratePrototypeSSDExecution6FinishEnd(GeneratePrototypeService GeneratePrototypeSSDExecution6)
+		MessageEnd::GeneratePrototypeSSDCallMessage11ReturnReceivingEnd(Producer GeneratePrototypeSSDCallMessage11Return)
+
+	}
+
+	Interaction Usecase4SSD {
+
+		[Participants: Usecase4Service]
+
+	}
+
+	Interaction ParametersSSD {
+
+		[Participants: Producer ParametersService]
+
+		CallMessage::ParametersSSDCallMessage1(SetParameter ParametersSSDCallMessage1SendingEnd -> ParametersSSDExecution1StartEnd)
+
+		Execution::ParametersSSDExecution1(ParametersService ParametersSSDExecution1StartEnd ParametersSSDExecution1FinishEnd)
+
+		MessageEnd::ParametersSSDCallMessage1SendingEnd(Producer ParametersSSDCallMessage1)
+		ExecutionEnd::ParametersSSDExecution1StartEnd(ParametersService ParametersSSDExecution1)
+		ExecutionEnd::ParametersSSDExecution1FinishEnd(ParametersService ParametersSSDExecution1)
+
+	}
+
+	Interaction ReleaseSSD {
+
+		[Participants: Player ReleaseService]
+
+		CallMessage::ReleaseSSDCallMessage1(OpenEXE ReleaseSSDCallMessage1SendingEnd -> ReleaseSSDExecution1StartEnd)
+		CallMessage::ReleaseSSDCallMessage2(StartFromBeginning ReleaseSSDCallMessage2SendingEnd -> ReleaseSSDExecution2StartEnd)
+		CallMessage::ReleaseSSDCallMessage3(LoadArchive ReleaseSSDCallMessage3SendingEnd -> ReleaseSSDExecution3StartEnd)
+		CallMessage::ReleaseSSDCallMessage4(DeleteArchive ReleaseSSDCallMessage4SendingEnd -> ReleaseSSDExecution4StartEnd)
+		CallMessage::ReleaseSSDCallMessage5(SaveArchive ReleaseSSDCallMessage5SendingEnd -> ReleaseSSDExecution5StartEnd)
+		CallMessage::ReleaseSSDCallMessage6(NextSentence ReleaseSSDCallMessage6SendingEnd -> ReleaseSSDExecution6StartEnd)
+		CallMessage::ReleaseSSDCallMessage7(LastSentence ReleaseSSDCallMessage7SendingEnd -> ReleaseSSDExecution7StartEnd)
+		CallMessage::ReleaseSSDCallMessage8(Skip ReleaseSSDCallMessage8SendingEnd -> ReleaseSSDExecution8StartEnd)
+		CallMessage::ReleaseSSDCallMessage9(ReturnToTitle ReleaseSSDCallMessage9SendingEnd -> ReleaseSSDExecution9StartEnd)
+		CallMessage::ReleaseSSDCallMessage10(ExitGame ReleaseSSDCallMessage10SendingEnd -> ReleaseSSDExecution10StartEnd)
+
+		Execution::ReleaseSSDExecution1(ReleaseService ReleaseSSDExecution1StartEnd ReleaseSSDExecution1FinishEnd)
+		Execution::ReleaseSSDExecution2(ReleaseService ReleaseSSDExecution2StartEnd ReleaseSSDExecution2FinishEnd)
+		Execution::ReleaseSSDExecution3(ReleaseService ReleaseSSDExecution3StartEnd ReleaseSSDExecution3FinishEnd)
+		Execution::ReleaseSSDExecution4(ReleaseService ReleaseSSDExecution4StartEnd ReleaseSSDExecution4FinishEnd)
+		Execution::ReleaseSSDExecution5(ReleaseService ReleaseSSDExecution5StartEnd ReleaseSSDExecution5FinishEnd)
+		Execution::ReleaseSSDExecution6(ReleaseService ReleaseSSDExecution6StartEnd ReleaseSSDExecution6FinishEnd)
+		Execution::ReleaseSSDExecution7(ReleaseService ReleaseSSDExecution7StartEnd ReleaseSSDExecution7FinishEnd)
+		Execution::ReleaseSSDExecution8(ReleaseService ReleaseSSDExecution8StartEnd ReleaseSSDExecution8FinishEnd)
+		Execution::ReleaseSSDExecution9(ReleaseService ReleaseSSDExecution9StartEnd ReleaseSSDExecution9FinishEnd)
+		Execution::ReleaseSSDExecution10(ReleaseService ReleaseSSDExecution10StartEnd ReleaseSSDExecution10FinishEnd)
+
+		MessageEnd::ReleaseSSDCallMessage1SendingEnd(Player ReleaseSSDCallMessage1)
+		ExecutionEnd::ReleaseSSDExecution1StartEnd(ReleaseService ReleaseSSDExecution1)
+		ExecutionEnd::ReleaseSSDExecution1FinishEnd(ReleaseService ReleaseSSDExecution1)
+		MessageEnd::ReleaseSSDCallMessage2SendingEnd(Player ReleaseSSDCallMessage2)
+		ExecutionEnd::ReleaseSSDExecution2StartEnd(ReleaseService ReleaseSSDExecution2)
+		ExecutionEnd::ReleaseSSDExecution2FinishEnd(ReleaseService ReleaseSSDExecution2)
+		MessageEnd::ReleaseSSDCallMessage3SendingEnd(Player ReleaseSSDCallMessage3)
+		ExecutionEnd::ReleaseSSDExecution3StartEnd(ReleaseService ReleaseSSDExecution3)
+		ExecutionEnd::ReleaseSSDExecution3FinishEnd(ReleaseService ReleaseSSDExecution3)
+		MessageEnd::ReleaseSSDCallMessage4SendingEnd(Player ReleaseSSDCallMessage4)
+		ExecutionEnd::ReleaseSSDExecution4StartEnd(ReleaseService ReleaseSSDExecution4)
+		ExecutionEnd::ReleaseSSDExecution4FinishEnd(ReleaseService ReleaseSSDExecution4)
+		MessageEnd::ReleaseSSDCallMessage5SendingEnd(Player ReleaseSSDCallMessage5)
+		ExecutionEnd::ReleaseSSDExecution5StartEnd(ReleaseService ReleaseSSDExecution5)
+		ExecutionEnd::ReleaseSSDExecution5FinishEnd(ReleaseService ReleaseSSDExecution5)
+		MessageEnd::ReleaseSSDCallMessage6SendingEnd(Player ReleaseSSDCallMessage6)
+		ExecutionEnd::ReleaseSSDExecution6StartEnd(ReleaseService ReleaseSSDExecution6)
+		ExecutionEnd::ReleaseSSDExecution6FinishEnd(ReleaseService ReleaseSSDExecution6)
+		MessageEnd::ReleaseSSDCallMessage7SendingEnd(Player ReleaseSSDCallMessage7)
+		ExecutionEnd::ReleaseSSDExecution7StartEnd(ReleaseService ReleaseSSDExecution7)
+		ExecutionEnd::ReleaseSSDExecution7FinishEnd(ReleaseService ReleaseSSDExecution7)
+		MessageEnd::ReleaseSSDCallMessage8SendingEnd(Player ReleaseSSDCallMessage8)
+		ExecutionEnd::ReleaseSSDExecution8StartEnd(ReleaseService ReleaseSSDExecution8)
+		ExecutionEnd::ReleaseSSDExecution8FinishEnd(ReleaseService ReleaseSSDExecution8)
+		MessageEnd::ReleaseSSDCallMessage9SendingEnd(Player ReleaseSSDCallMessage9)
+		ExecutionEnd::ReleaseSSDExecution9StartEnd(ReleaseService ReleaseSSDExecution9)
+		ExecutionEnd::ReleaseSSDExecution9FinishEnd(ReleaseService ReleaseSSDExecution9)
+		MessageEnd::ReleaseSSDCallMessage10SendingEnd(Player ReleaseSSDCallMessage10)
+		ExecutionEnd::ReleaseSSDExecution10StartEnd(ReleaseService ReleaseSSDExecution10)
+		ExecutionEnd::ReleaseSSDExecution10FinishEnd(ReleaseService ReleaseSSDExecution10)
+
+	}
+
+	Interaction ArchiveSSD {
+
+		[Participants: Player ArchiveService]
+
+		CallMessage::ArchiveSSDCallMessage1(CopyArchive ArchiveSSDCallMessage1SendingEnd -> ArchiveSSDExecution1StartEnd)
+		CallMessage::ArchiveSSDCallMessage2(PasteArchive ArchiveSSDCallMessage2SendingEnd -> ArchiveSSDExecution2StartEnd)
+
+		Execution::ArchiveSSDExecution1(ArchiveService ArchiveSSDExecution1StartEnd ArchiveSSDExecution1FinishEnd)
+		Execution::ArchiveSSDExecution2(ArchiveService ArchiveSSDExecution2StartEnd ArchiveSSDExecution2FinishEnd)
+
+		MessageEnd::ArchiveSSDCallMessage1SendingEnd(Player ArchiveSSDCallMessage1)
+		ExecutionEnd::ArchiveSSDExecution1StartEnd(ArchiveService ArchiveSSDExecution1)
+		ExecutionEnd::ArchiveSSDExecution1FinishEnd(ArchiveService ArchiveSSDExecution1)
+		MessageEnd::ArchiveSSDCallMessage2SendingEnd(Player ArchiveSSDCallMessage2)
+		ExecutionEnd::ArchiveSSDExecution2StartEnd(ArchiveService ArchiveSSDExecution2)
+		ExecutionEnd::ArchiveSSDExecution2FinishEnd(ArchiveService ArchiveSSDExecution2)
+
+	}
+
+	Service Authoring {} Service ThirdPartyServices {}
+
+	Service ProvideScriptService {
+
+		[Operation]
+		ProvideScript()
+		SearchResources()
+
+	}
+
+	Service ProvideResourcesService {
+
+		[Operation]
+		ProvideResources()
+
+	}
+
+	Service GeneratePrototypeService {
+
+		[Operation]
+		GeneratePrototype()
+		AddBranch()
+		AdjustText()
+		AdjustResources()
+		ProvideExtraScri()
+		RegeneratePrototype()
+
+	}
+
+	Service Usecase4Service {
+
+	}
+
+	Service ParametersService {
+
+		[Operation]
+		SetParameter()
+
+	}
+
+Service ReleaseService {
+
+		[Operation]
+		OpenEXE()
+		StartFromBeginning()
+		LoadArchive()
+		DeleteArchive()
+		SaveArchive()
+		NextSentence()
+		LastSentence()
+		Skip()
+		ReturnToTitle()
+		ExitGame()
+
+	}
+
+	Service ArchiveService {
+
+		[Operation]
+		CopyArchive()
+		PasteArchive()
+
+	}
+
+}
+DomainModel Authoring {
+
+	Entity Script {
+		Text : String
+		UsedCG : String
+		UsedBGM : String
+		Drawing : String
+		Voice : String
+
+		[Refer]
+		ScripttoResources : Resources Association
+	}
+
+	Entity Resources {
+		ResourcesFile : String
+		ResourceClass : String
+	}
+
+}
+
